@@ -208,6 +208,89 @@
       background-color: #c0aa6f;
       box-shadow: 0 0 15px 3px rgba(192,170,111,0.7);
     }
+
+
+
+    /* ===== Creators Section ===== */
+    .creators {
+      background: #111; /* Match your other dark sections */
+      padding: 3rem 1rem;
+      position: relative; /* Allows parallax if you have a background image */
+    }
+
+    .creators h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2rem;
+      color: #c0aa6f;
+    }
+
+    .creator-cards {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap; /* Wrap on smaller screens */
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .creator-card {
+      background: rgba(20, 20, 20, 0.9);
+      border: 2px solid rgba(192, 170, 111, 0.6);
+      border-radius: 10px;
+      width: 250px;
+      padding: 2rem 1rem;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .creator-card:hover {
+      transform: scale(1.04);
+      box-shadow: 0 0 20px 3px rgba(192, 170, 111, 0.4);
+    }
+
+    /* Circular profile image with a golden border */
+    .creator-image {
+      width: 150px;
+      height: 150px;
+      margin: 0 auto 1rem auto;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid #c0aa6f; /* Golden border */
+    }
+
+    .creator-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* Ensures the image fills the circle */
+    }
+
+    .creator-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      color: #e0d8c3;
+      letter-spacing: 0.05rem;
+    }
+
+    .creator-card p {
+      color: #d4c8b0;
+      line-height: 1.4;
+      font-size: 0.9rem;
+      margin: 0 auto;
+      max-width: 200px;
+    }
+
+    .hackathon-note {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 1rem;
+      color: #c0aa6f;
+      opacity: 0.9;
+    }
+
   </style>
 </head>
 <body>
@@ -275,6 +358,68 @@
     </div>
     <div class="region-info"></div>
   </section>
+
+
+
+
+  <!-- Creators Section -->
+  <section class="creators parallax">
+    <h2>Meet the Creators</h2>
+    <div class="creator-cards">
+      <!-- Devyn Lewis -->
+      <div class="creator-card">
+        <div class="creator-image">
+          <!-- Update to correct image file name/path -->
+          <img src="img/devyn_lewis.jpeg" alt="Devyn Lewis">
+        </div>
+        <h3>Devyn Lewis</h3>
+        <p>
+          Devyn is a freshman studying Computer Science
+        </p>
+      </div>
+
+      <!-- Alexander Palomino -->
+      <div class="creator-card">
+        <div class="creator-image">
+          <img src="img/alexander_palomino.jpeg" alt="Alexander Palomino">
+        </div>
+        <h3>Alexander Palomino</h3>
+        <p>
+          Alexander is a freshman studying Computer Science
+        </p>
+      </div>
+
+      <!-- Lucas Rhode -->
+      <div class="creator-card">
+        <div class="creator-image">
+          <img src="img/lucas_rhode.jpg" alt="Lucas Rhode">
+        </div>
+        <h3>Lucas Rhode</h3>
+        <p>
+          Lucas is a freshman studying Electrical Engineering
+        </p>
+      </div>
+
+      <!-- Adrian Rodriguez -->
+      <div class="creator-card">
+        <div class="creator-image">
+          <img src="img/adrian_rodriguez.jpeg" alt="Adrian Rodriguez">
+        </div>
+        <h3>Adrian Rodriguez</h3>
+        <p>
+          Adrian is a freshman studying Mechanical Engineering
+        </p>
+      </div>
+    </div>
+
+    <p class="hackathon-note">
+      This was all done for the HopperHacks X: 2025 which is the 10th annual hackathon of Women in Computer Science (WiCS) at Stony Brook University!
+    </p>
+  </section>
+
+
+
+
 
 
   <!-- -----------------------------
