@@ -456,10 +456,12 @@
   <script>
     // Mode card click events
     document.getElementById("normalMode").addEventListener("click", function(){
-      alert("Normal Mode Selected!");
+        // Store 'normal' as a parameter, then redirect
+        window.location.href = "game.html?mode=normal";
     });
     document.getElementById("timedMode").addEventListener("click", function(){
-      alert("Timed Mode Selected!");
+        // Store 'timed' as a parameter, then redirect
+        window.location.href = "game.html?mode=timed";
     });
 
     // Map preview hotspot interactions
