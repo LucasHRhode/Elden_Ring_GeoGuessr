@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Elden Ring GeoGuessr - Results</title>
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <style>
+    body {
+      margin: 0;
+      background: #0a0a0a;
+      font-family: 'Cinzel', serif;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    .results-container {
+      margin: auto;
+      max-width: 800px;
+      padding: 2rem;
+      text-align: center;
+      background: rgba(20,20,20,0.9);
+      border: 2px solid #c0aa6f;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(192,170,111,0.4);
+    }
+    h1 {
+      font-size: 2rem;
+      color: #c0aa6f;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1rem;
+    }
+    .round-results-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 2rem;
+    }
+    .round-results-table thead tr {
+      background: rgba(192,170,111,0.2);
+    }
+    .round-results-table th,
+    .round-results-table td {
+      border: 1px solid #c0aa6f;
+      padding: 0.75rem 1rem;
+      text-align: left;
+    }
+    .round-results-table th {
+      color: #c0aa6f;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+    }
+    .round-results-table td {
+      font-size: 0.85rem;
+    }
+    .final-score {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      color: #e0d8c3;
+    }
+    .btn {
+      display: inline-block;
+      background: linear-gradient(45deg, #c0aa6f, #d4c8b0);
+      border: none;
+      color: #0a0a0a;
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.1rem;
+      cursor: pointer;
+      border-radius: 50px;
+      box-shadow: 0 4px 15px rgba(192,170,111,0.6);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      margin: 0.5rem;
+      text-decoration: none;
+    }
+    .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(192,170,111,0.8);
+      color: #0a0a0a;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="results-container">
+    <h1>Your Results</h1>
+    <div id="resultsTableWrapper">
+      <!-- Table will be dynamically inserted here -->
+    </div>
+    <div class="final-score" id="finalScoreDisplay">Final Score: 0</div>
+    <a class="btn" href="index.html">Return to Main Menu</a>
+    <a class="btn" href="game.html">Play Again</a>
+  </div>
+
+  <script>
+    // On page load, retrieve the round details from localStorage
+    window.addEventListener('DOMContentLoaded', () => {
+      const roundDetailsStr = localStorage.getItem("eldenRingGeoGuessrRoundDetails");
+      const finalScore = localStorage.getItem("eldenRingGeoGuessrFinalScore");
+      const tableWrapper = document.getElementById("resultsTableWrapper");
+      const scoreDisplay = document.getElementById("finalScoreDisplay");
+
+      if (!roundDetailsStr) {
+        tableWrapper.innerHTML = "<p>No round data found. Please play a game first.</p>";
+        return;
+      }
+
+      const roundDetails = JSON.parse(roundDetailsStr);
+
+      // Build an HTML table to show round-by-round data
+      let tableHTML = `
+        <table class="round-results-table">
+          <thead>
+            <tr>
+              <th>Round</th>
+              <th>Location</th>
+              <th>Region</th>
+              <th>Distance (px)</th>
+              <th>Points</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+      roundDetails.forEach((rd, index) => {
+        const distText = isNaN(rd.distance) ? 'N/A' : rd.distance.toFixed(2);
+        tableHTML += `
+          <tr>
+            <td>${index + 1}</td>
+            <td>${rd.name}</td>
+            <td>${rd.region}</td>
+            <td>${distText}</td>
+            <td>${rd.points}</td>
+          </tr>
+        `;
+      });
+      tableHTML += "</tbody></table>";
+
+      tableWrapper.innerHTML = tableHTML;
+
+      // Display final score
+      if (finalScore) {
+        scoreDisplay.textContent = "Final Score: " + finalScore;
+      }
+    });
+  </script>
+</body>
+</html>

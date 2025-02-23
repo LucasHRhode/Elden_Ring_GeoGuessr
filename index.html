@@ -56,7 +56,26 @@
     }
 
     /* -----------------------------
-       Modes Section with Interactive Cards
+       High Score Section
+    ----------------------------- */
+    .high-score-section {
+      background: #111;
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+    .high-score-section h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      letter-spacing: 0.1rem;
+      color: #c0aa6f;
+    }
+    .high-score-value {
+      font-size: 1.5rem;
+      color: #e0d8c3;
+    }
+
+    /* -----------------------------
+       Modes Section with Cards
     ----------------------------- */
     .modes {
       padding: 3rem 1rem;
@@ -94,7 +113,6 @@
       transform: scale(1.05);
       box-shadow: 0 0 20px 5px rgba(192,170,111,0.5);
     }
-    /* Subtle pulse effect with a pseudo-element */
     .card:before {
       content: "";
       position: absolute;
@@ -160,7 +178,6 @@
       border-radius: 10px;
       box-shadow: 0 0 15px rgba(192,170,111,0.4);
     }
-    /* Hotspots on the map */
     .map-hotspot {
       position: absolute;
       width: 30px;
@@ -192,39 +209,13 @@
     }
 
     /* -----------------------------
-       Dark, Mystical Button Example
+       Creators Section
     ----------------------------- */
-    .mystical-button {
-      background: transparent;
-      border: 2px solid #c0aa6f;
-      color: #c0aa6f;
-      padding: 0.8rem 1.5rem;
-      font-size: 1.2rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-      margin: 2rem auto;
-      display: block;
-      border-radius: 8px;
-    }
-    .mystical-button:hover {
-      color: #0d0d0d;
-      background-color: #c0aa6f;
-      box-shadow: 0 0 15px 3px rgba(192,170,111,0.7);
-    }
-
-
-
-    /* ===== Creators Section ===== */
     .creators {
-      background: #111; /* Match your other dark sections */
+      background: #111;
       padding: 3rem 1rem;
-      position: relative; /* Allows parallax if you have a background image */
+      position: relative;
     }
-
     .creators h2 {
       text-align: center;
       font-size: 2.5rem;
@@ -233,16 +224,14 @@
       letter-spacing: 0.2rem;
       color: #c0aa6f;
     }
-
     .creator-cards {
       display: flex;
       justify-content: center;
-      flex-wrap: wrap; /* Wrap on smaller screens */
+      flex-wrap: wrap;
       gap: 2rem;
       max-width: 1200px;
       margin: 0 auto;
     }
-
     .creator-card {
       background: rgba(20, 20, 20, 0.9);
       border: 2px solid rgba(192, 170, 111, 0.6);
@@ -252,28 +241,23 @@
       text-align: center;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-
     .creator-card:hover {
       transform: scale(1.04);
       box-shadow: 0 0 20px 3px rgba(192, 170, 111, 0.4);
     }
-
-    /* Circular profile image with a golden border */
     .creator-image {
       width: 150px;
       height: 150px;
       margin: 0 auto 1rem auto;
       border-radius: 50%;
       overflow: hidden;
-      border: 3px solid #c0aa6f; /* Golden border */
+      border: 3px solid #c0aa6f;
     }
-
     .creator-image img {
       width: 100%;
       height: 100%;
-      object-fit: cover; /* Ensures the image fills the circle */
+      object-fit: cover;
     }
-
     .creator-card h3 {
       font-size: 1.2rem;
       margin-bottom: 0.5rem;
@@ -281,7 +265,6 @@
       color: #e0d8c3;
       letter-spacing: 0.05rem;
     }
-
     .creator-card p {
       color: #d4c8b0;
       line-height: 1.4;
@@ -289,7 +272,6 @@
       margin: 0 auto;
       max-width: 200px;
     }
-
     .hackathon-note {
       text-align: center;
       margin-top: 2rem;
@@ -297,13 +279,13 @@
       color: #c0aa6f;
       opacity: 0.9;
     }
-
+    .hackathon-note a {
+      color: #c0aa6f;
+    }
     .glow {
-      color: #c0aa6f; /* Golden color */
+      color: #c0aa6f;
       text-shadow: 0 0 1px #c0aa6f;
     }
-
-
   </style>
 </head>
 <body>
@@ -314,6 +296,12 @@
 
   <!-- Fog Effect for Atmosphere -->
   <div class="fog"></div>
+
+  <!-- High Score Section -->
+  <section class="high-score-section">
+    <h2>High Score</h2>
+    <div class="high-score-value" id="highScoreDisplay">Loading...</div>
+  </section>
 
   <!-- Modes Section with Interactive Cards -->
   <section class="modes parallax">
@@ -359,21 +347,18 @@
     <div class="map-container">
       <!-- Replace with your mini map image -->
       <img src="img/lands_between_map.jpg" alt="Map Preview of The Lands Between">
-      <!-- Hotspots positioned over the map (adjust positions as needed) -->
-      <div class="map-hotspot" style="top: 5%; left: 56%;" data-region="Miguella's Haligtree"></div>
+      <!-- Hotspots positioned over the map -->
+      <div class="map-hotspot" style="top: 5%; left: 56%;" data-region="Miquella's Haligtree"></div>
       <div class="map-hotspot" style="top: 30%; left: 70%;" data-region="Mountaintops of the Giants"></div>
       <div class="map-hotspot" style="top: 27%; left: 33%;" data-region="Altus Plateau"></div>
       <div class="map-hotspot" style="top: 23%; left: 18%;" data-region="Mt. Gelmir"></div>
-      <div class="map-hotspot" style="top: 45%; left: 18%;" data-region="Liurna of The Lakes"></div>
+      <div class="map-hotspot" style="top: 45%; left: 18%;" data-region="Liurnia of The Lakes"></div>
       <div class="map-hotspot" style="top: 70%; left: 60%;" data-region="Caelid"></div>
       <div class="map-hotspot" style="top: 75%; left: 35%;" data-region="Limgrave"></div>
       <div class="map-hotspot" style="top: 89%; left: 32%;" data-region="Weeping Peninsula"></div>
     </div>
     <div class="region-info"></div>
   </section>
-
-
-
 
   <!-- Creators Section -->
   <section class="creators parallax">
@@ -386,9 +371,7 @@
             <img src="img/devyn_lewis.jpeg" alt="Devyn Lewis">
           </div>
           <h3>Devyn Lewis</h3>
-          <p>
-            Devyn is a freshman studying Computer Science.
-          </p>
+          <p>Devyn is a freshman studying Computer Science.</p>
         </div>
       </a>
 
@@ -399,9 +382,7 @@
             <img src="img/alexander_palomino.jpeg" alt="Alexander Palomino">
           </div>
           <h3>Alexander Palomino</h3>
-          <p>
-            Alexander is a freshman studying Computer Science.
-          </p>
+          <p>Alexander is a freshman studying Computer Science.</p>
         </div>
       </a>
 
@@ -412,9 +393,7 @@
             <img src="img/lucas_rhode.jpg" alt="Lucas Rhode">
           </div>
           <h3>Lucas Rhode</h3>
-          <p>
-            Lucas is a freshman studying Electrical Engineering.
-          </p>
+          <p>Lucas is a freshman studying Electrical Engineering.</p>
         </div>
       </a>
 
@@ -425,9 +404,7 @@
             <img src="img/adrian_rodriguez.jpeg" alt="Adrian Rodriguez">
           </div>
           <h3>Adrian Rodriguez</h3>
-          <p>
-            Adrian is a freshman studying Mechanical Engineering.
-          </p>
+          <p>Adrian is a freshman studying Mechanical Engineering.</p>
         </div>
       </a>
     </div>
@@ -445,22 +422,24 @@
     </p>
   </section>
 
-
-
-
-
-
-  <!-- -----------------------------
-       JavaScript for Interactions
-  ----------------------------- -->
+  <!-- Script to handle High Score in index.html -->
   <script>
+    // Display the stored high score (if any)
+    window.addEventListener('DOMContentLoaded', function() {
+      const highScore = localStorage.getItem('eldenRingGeoGuessrHighScore');
+      const displayEl = document.getElementById('highScoreDisplay');
+      if (highScore) {
+        displayEl.textContent = highScore + " points";
+      } else {
+        displayEl.textContent = "No high score yet!";
+      }
+    });
+
     // Mode card click events
     document.getElementById("normalMode").addEventListener("click", function(){
-        // Store 'normal' as a parameter, then redirect
         window.location.href = "game.html?mode=normal";
     });
     document.getElementById("timedMode").addEventListener("click", function(){
-        // Store 'timed' as a parameter, then redirect
         window.location.href = "game.html?mode=timed";
     });
 
@@ -477,10 +456,6 @@
         regionInfo.style.opacity = 0;
       });
     });
-
-    function startGame() {
-      alert("Starting the journey into The Lands Between!");
-    }
   </script>
 </body>
 </html>
