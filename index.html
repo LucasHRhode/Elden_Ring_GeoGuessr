@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Elden Ring GeoGuessr</title>
+  <link rel="icon" type="image/png" href="img/favicon.png">
+
+  <style>
+    a, a:visited, a:hover, a:active {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* -----------------------------
+       Basic Reset & Body Styles
+    ----------------------------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Cinzel', serif;
+      background-color: #0a0a0a;
+      color: #fff;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* -----------------------------
+       Banner Section
+    ----------------------------- */
+    .banner img {
+      width: 100%;
+      display: block;
+    }
+
+    /* -----------------------------
+       Fog Background Effect
+    ----------------------------- */
+    .fog {
+      pointer-events: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 200%;
+      height: 200%;
+      background: url('img/fog.png') repeat;
+      opacity: 0.1;
+      animation: moveFog 60s linear infinite;
+      z-index: -1;
+    }
+    @keyframes moveFog {
+      from { transform: translate(0,0); }
+      to { transform: translate(-50%, -50%); }
+    }
+
+    /* -----------------------------
+       Modes Section with Interactive Cards
+    ----------------------------- */
+    .modes {
+      padding: 3rem 1rem;
+      background: #111;
+      position: relative;
+      z-index: 1;
+    }
+    .modes h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2rem;
+      color: #c0aa6f;
+    }
+    .cards-container {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .card {
+      background: rgba(20,20,20,0.9);
+      border: 2px solid rgba(192,170,111,0.6);
+      border-radius: 10px;
+      width: 300px;
+      padding: 1.5rem;
+      text-align: center;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      overflow: hidden;
+    }
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px 5px rgba(192,170,111,0.5);
+    }
+    /* Subtle pulse effect with a pseudo-element */
+    .card:before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(192,170,111,0.3), transparent 70%);
+      animation: pulse 3s infinite;
+      opacity: 0;
+    }
+    @keyframes pulse {
+      0% { opacity: 0; transform: scale(0.9); }
+      50% { opacity: 1; transform: scale(1); }
+      100% { opacity: 0; transform: scale(0.9); }
+    }
+    .card-icon {
+      margin-bottom: 1rem;
+    }
+    .card-icon svg {
+      width: 60px;
+      height: 60px;
+      fill: #c0aa6f;
+      filter: drop-shadow(0 0 5px rgba(192,170,111,0.7));
+    }
+    .card-content h3 {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      color: #e0d8c3;
+    }
+    .card-content p {
+      font-size: 1rem;
+      color: #d4c8b0;
+    }
+
+    /* -----------------------------
+       Map Preview Section
+    ----------------------------- */
+    .map-preview {
+      padding: 3rem 1rem;
+      background: #0d0d0d;
+      position: relative;
+      overflow: hidden;
+    }
+    .map-preview h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      color: #c0aa6f;
+      text-transform: uppercase;
+      letter-spacing: 0.2rem;
+    }
+    .map-container {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .map-container img {
+      width: 100%;
+      display: block;
+      border: 5px solid #c0aa6f;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(192,170,111,0.4);
+    }
+    /* Hotspots on the map */
+    .map-hotspot {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: rgba(192,170,111,0.8);
+      border-radius: 50%;
+      pointer-events: auto;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .map-hotspot:hover {
+      transform: scale(1.3);
+      box-shadow: 0 0 10px 3px rgba(192,170,111,0.8);
+    }
+    .region-info {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 1.5rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      color: #e0d8c3;
+    }
+
+    /* -----------------------------
+       Parallax Effect
+    ----------------------------- */
+    .parallax {
+      background-attachment: fixed;
+      background-size: cover;
+    }
+
+    /* -----------------------------
+       Dark, Mystical Button Example
+    ----------------------------- */
+    .mystical-button {
+      background: transparent;
+      border: 2px solid #c0aa6f;
+      color: #c0aa6f;
+      padding: 0.8rem 1.5rem;
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      margin: 2rem auto;
+      display: block;
+      border-radius: 8px;
+    }
+    .mystical-button:hover {
+      color: #0d0d0d;
+      background-color: #c0aa6f;
+      box-shadow: 0 0 15px 3px rgba(192,170,111,0.7);
+    }
+
+
+
+    /* ===== Creators Section ===== */
+    .creators {
+      background: #111; /* Match your other dark sections */
+      padding: 3rem 1rem;
+      position: relative; /* Allows parallax if you have a background image */
+    }
+
+    .creators h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2rem;
+      color: #c0aa6f;
+    }
+
+    .creator-cards {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap; /* Wrap on smaller screens */
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .creator-card {
+      background: rgba(20, 20, 20, 0.9);
+      border: 2px solid rgba(192, 170, 111, 0.6);
+      border-radius: 10px;
+      width: 250px;
+      padding: 2rem 1rem;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .creator-card:hover {
+      transform: scale(1.04);
+      box-shadow: 0 0 20px 3px rgba(192, 170, 111, 0.4);
+    }
+
+    /* Circular profile image with a golden border */
+    .creator-image {
+      width: 150px;
+      height: 150px;
+      margin: 0 auto 1rem auto;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid #c0aa6f; /* Golden border */
+    }
+
+    .creator-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* Ensures the image fills the circle */
+    }
+
+    .creator-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      color: #e0d8c3;
+      letter-spacing: 0.05rem;
+    }
+
+    .creator-card p {
+      color: #d4c8b0;
+      line-height: 1.4;
+      font-size: 0.9rem;
+      margin: 0 auto;
+      max-width: 200px;
+    }
+
+    .hackathon-note {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 1rem;
+      color: #c0aa6f;
+      opacity: 0.9;
+    }
+
+    .glow {
+      color: #c0aa6f; /* Golden color */
+      text-shadow: 0 0 1px #c0aa6f;
+    }
+
+
+  </style>
+</head>
+<body>
+  <!-- Banner Section -->
+  <div class="banner">
+    <img src="img/Elden_Ring_GeoGuessR_Banner.jpg" alt="Elden Ring GeoGuessr Banner">
+  </div>
+
+  <!-- Fog Effect for Atmosphere -->
+  <div class="fog"></div>
+
+  <!-- Modes Section with Interactive Cards -->
+  <section class="modes parallax">
+    <h2>Choose Your Fate</h2>
+    <div class="cards-container">
+      <!-- Normal Mode Card -->
+      <div class="card" id="normalMode">
+        <div class="card-icon">
+          <!-- Sample SVG Icon for Normal Mode -->
+          <svg viewBox="0 0 64 64">
+            <circle cx="32" cy="32" r="30" stroke="#c0aa6f" stroke-width="4" fill="none" />
+            <path d="M32 16 L32 48" stroke="#c0aa6f" stroke-width="4"/>
+            <path d="M16 32 L48 32" stroke="#c0aa6f" stroke-width="4"/>
+          </svg>
+        </div>
+        <div class="card-content">
+          <h3>Normal Mode</h3>
+          <p>Explore freely without time constraints. Unravel mysteries at your own pace.</p>
+        </div>
+      </div>
+
+      <!-- Timed Mode Card -->
+      <div class="card" id="timedMode">
+        <div class="card-icon">
+          <!-- Sample SVG Icon for Timed Mode -->
+          <svg viewBox="0 0 64 64">
+            <circle cx="32" cy="32" r="30" stroke="#c0aa6f" stroke-width="4" fill="none" />
+            <path d="M32 10 A22 22 0 1 1 31.9 10" stroke="#c0aa6f" stroke-width="4" fill="none"/>
+            <path d="M32 32 L32 20" stroke="#c0aa6f" stroke-width="4"/>
+          </svg>
+        </div>
+        <div class="card-content">
+          <h3>Timed Mode</h3>
+          <p>Race against time to pinpoint locations. Prove your mastery under pressure.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Map Preview Section -->
+  <section class="map-preview parallax">
+    <h2>The Lands Between</h2>
+    <div class="map-container">
+      <!-- Replace with your mini map image -->
+      <img src="img/lands_between_map.jpg" alt="Map Preview of The Lands Between">
+      <!-- Hotspots positioned over the map (adjust positions as needed) -->
+      <div class="map-hotspot" style="top: 5%; left: 56%;" data-region="Miguella's Haligtree"></div>
+      <div class="map-hotspot" style="top: 30%; left: 70%;" data-region="Mountaintops of the Giants"></div>
+      <div class="map-hotspot" style="top: 27%; left: 33%;" data-region="Altus Plateau"></div>
+      <div class="map-hotspot" style="top: 23%; left: 18%;" data-region="Mt. Gelmir"></div>
+      <div class="map-hotspot" style="top: 45%; left: 18%;" data-region="Liurna of The Lakes"></div>
+      <div class="map-hotspot" style="top: 70%; left: 60%;" data-region="Caelid"></div>
+      <div class="map-hotspot" style="top: 75%; left: 35%;" data-region="Limgrave"></div>
+      <div class="map-hotspot" style="top: 89%; left: 32%;" data-region="Weeping Peninsula"></div>
+    </div>
+    <div class="region-info"></div>
+  </section>
+
+
+
+
+  <!-- Creators Section -->
+  <section class="creators parallax">
+    <h2>Meet the Creators</h2>
+    <div class="creator-cards">
+      <!-- Devyn Lewis -->
+      <a href="https://www.linkedin.com/in/devyn-lewis-sbu2028/" target="_blank" class="creator-link">
+        <div class="creator-card">
+          <div class="creator-image">
+            <img src="img/devyn_lewis.jpeg" alt="Devyn Lewis">
+          </div>
+          <h3>Devyn Lewis</h3>
+          <p>
+            Devyn is a freshman studying Computer Science.
+          </p>
+        </div>
+      </a>
+
+      <!-- Alexander Palomino -->
+      <a href="https://www.linkedin.com/in/alexander-palomino-478240278/" target="_blank" class="creator-link">
+        <div class="creator-card">
+          <div class="creator-image">
+            <img src="img/alexander_palomino.jpeg" alt="Alexander Palomino">
+          </div>
+          <h3>Alexander Palomino</h3>
+          <p>
+            Alexander is a freshman studying Computer Science.
+          </p>
+        </div>
+      </a>
+
+      <!-- Lucas Rhode -->
+      <a href="https://lucashrhode.github.io/" target="_blank" class="creator-link">
+        <div class="creator-card">
+          <div class="creator-image">
+            <img src="img/lucas_rhode.jpg" alt="Lucas Rhode">
+          </div>
+          <h3>Lucas Rhode</h3>
+          <p>
+            Lucas is a freshman studying Electrical Engineering.
+          </p>
+        </div>
+      </a>
+
+      <!-- Adrian Rodriguez -->
+      <a href="https://www.linkedin.com/in/adrian-rodriguez-741158246/" target="_blank" class="creator-link">
+        <div class="creator-card">
+          <div class="creator-image">
+            <img src="img/adrian_rodriguez.jpeg" alt="Adrian Rodriguez">
+          </div>
+          <h3>Adrian Rodriguez</h3>
+          <p>
+            Adrian is a freshman studying Mechanical Engineering.
+          </p>
+        </div>
+      </a>
+    </div>
+
+    <p class="hackathon-note">
+      This was all done for the 
+      <a href="https://www3.cs.stonybrook.edu/~wics/hopperhacks/2025/" target="_blank">
+        <strong class="glow">HopperHacks X: 2025</strong>
+      </a> 
+      which is the 10th annual hackathon of 
+      <a href="https://www3.cs.stonybrook.edu/~wics/pages/index.html" target="_blank">
+        <strong class="glow">Women in Computer Science (WiCS)</strong>
+      </a> 
+      at Stony Brook University!
+    </p>
+  </section>
+
+
+
+
+
+
+  <!-- -----------------------------
+       JavaScript for Interactions
+  ----------------------------- -->
+  <script>
+    // Mode card click events
+    document.getElementById("normalMode").addEventListener("click", function(){
+      alert("Normal Mode Selected!");
+    });
+    document.getElementById("timedMode").addEventListener("click", function(){
+      alert("Timed Mode Selected!");
+    });
+
+    // Map preview hotspot interactions
+    const hotspots = document.querySelectorAll('.map-hotspot');
+    const regionInfo = document.querySelector('.region-info');
+
+    hotspots.forEach(hotspot => {
+      hotspot.addEventListener('mouseenter', function(){
+        regionInfo.textContent = hotspot.getAttribute('data-region');
+        regionInfo.style.opacity = 1;
+      });
+      hotspot.addEventListener('mouseleave', function(){
+        regionInfo.style.opacity = 0;
+      });
+    });
+
+    function startGame() {
+      alert("Starting the journey into The Lands Between!");
+    }
+  </script>
+</body>
+</html>
