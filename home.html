@@ -4,6 +4,11 @@
   <meta charset="UTF-8" />
   <title>Elden Ring GeoGuessr</title>
   <style>
+    a, a:visited, a:hover, a:active {
+      text-decoration: none;
+      color: inherit;
+    }
+
     /* -----------------------------
        Basic Reset & Body Styles
     ----------------------------- */
@@ -291,6 +296,12 @@
       opacity: 0.9;
     }
 
+    .glow {
+      color: #c0aa6f; /* Golden color */
+      text-shadow: 0 0 1px #c0aa6f;
+    }
+
+
   </style>
 </head>
 <body>
@@ -367,53 +378,68 @@
     <h2>Meet the Creators</h2>
     <div class="creator-cards">
       <!-- Devyn Lewis -->
-      <div class="creator-card">
-        <div class="creator-image">
-          <!-- Update to correct image file name/path -->
-          <img src="img/devyn_lewis.jpeg" alt="Devyn Lewis">
+      <a href="https://www.linkedin.com/in/devyn-lewis-sbu2028/" target="_blank" class="creator-link">
+        <div class="creator-card">
+          <div class="creator-image">
+            <img src="img/devyn_lewis.jpeg" alt="Devyn Lewis">
+          </div>
+          <h3>Devyn Lewis</h3>
+          <p>
+            Devyn is a freshman studying Computer Science.
+          </p>
         </div>
-        <h3>Devyn Lewis</h3>
-        <p>
-          Devyn is a freshman studying Computer Science
-        </p>
-      </div>
+      </a>
 
       <!-- Alexander Palomino -->
-      <div class="creator-card">
-        <div class="creator-image">
-          <img src="img/alexander_palomino.jpeg" alt="Alexander Palomino">
+      <a href="https://www.linkedin.com/in/alexander-palomino-478240278/" target="_blank" class="creator-link">
+        <div class="creator-card">
+          <div class="creator-image">
+            <img src="img/alexander_palomino.jpeg" alt="Alexander Palomino">
+          </div>
+          <h3>Alexander Palomino</h3>
+          <p>
+            Alexander is a freshman studying Computer Science.
+          </p>
         </div>
-        <h3>Alexander Palomino</h3>
-        <p>
-          Alexander is a freshman studying Computer Science
-        </p>
-      </div>
+      </a>
 
       <!-- Lucas Rhode -->
-      <div class="creator-card">
-        <div class="creator-image">
-          <img src="img/lucas_rhode.jpg" alt="Lucas Rhode">
+      <a href="https://lucashrhode.github.io/" target="_blank" class="creator-link">
+        <div class="creator-card">
+          <div class="creator-image">
+            <img src="img/lucas_rhode.jpg" alt="Lucas Rhode">
+          </div>
+          <h3>Lucas Rhode</h3>
+          <p>
+            Lucas is a freshman studying Electrical Engineering.
+          </p>
         </div>
-        <h3>Lucas Rhode</h3>
-        <p>
-          Lucas is a freshman studying Electrical Engineering
-        </p>
-      </div>
+      </a>
 
       <!-- Adrian Rodriguez -->
-      <div class="creator-card">
-        <div class="creator-image">
-          <img src="img/adrian_rodriguez.jpeg" alt="Adrian Rodriguez">
+      <a href="https://www.linkedin.com/in/adrian-rodriguez-741158246/" target="_blank" class="creator-link">
+        <div class="creator-card">
+          <div class="creator-image">
+            <img src="img/adrian_rodriguez.jpeg" alt="Adrian Rodriguez">
+          </div>
+          <h3>Adrian Rodriguez</h3>
+          <p>
+            Adrian is a freshman studying Mechanical Engineering.
+          </p>
         </div>
-        <h3>Adrian Rodriguez</h3>
-        <p>
-          Adrian is a freshman studying Mechanical Engineering
-        </p>
-      </div>
+      </a>
     </div>
 
     <p class="hackathon-note">
-      This was all done for the HopperHacks X: 2025 which is the 10th annual hackathon of Women in Computer Science (WiCS) at Stony Brook University!
+      This was all done for the 
+      <a href="https://www3.cs.stonybrook.edu/~wics/hopperhacks/2025/" target="_blank">
+        <strong class="glow">HopperHacks X: 2025</strong>
+      </a> 
+      which is the 10th annual hackathon of 
+      <a href="https://www3.cs.stonybrook.edu/~wics/pages/index.html" target="_blank">
+        <strong class="glow">Women in Computer Science (WiCS)</strong>
+      </a> 
+      at Stony Brook University!
     </p>
   </section>
 
